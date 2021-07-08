@@ -44,4 +44,4 @@ jobs:
   
     - name: Test with pytest
       run: |
-        pytest -m test_metadata_pull
+        pytest test_foundry.py::test_metadata_pull
