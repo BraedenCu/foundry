@@ -96,7 +96,7 @@ class FoundryDataset(BaseModel):
 
     keys: List[FoundryKey] = None
     splits: Optional[List[FoundrySplit]] = None
-    type: FoundryDatasetType = None
+    data_type: FoundryDatasetType = None
     # version: Optional[str] = ""
     short_name: Optional[str] = ""
     dataframe: Optional[Any] = None
