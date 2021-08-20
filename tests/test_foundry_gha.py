@@ -10,11 +10,6 @@ from foundry import Foundry
 from dlhub_sdk import DLHubClient
 from mdf_connect_client import MDFConnectClient
 
-
-#github specific declarations
-client_id = os.getenv('CLIENT_ID')
-client_secret = os.getenv('CLIENT_SECRET')
-
 services= [
             "data_mdf",
             "mdf_connect",
@@ -25,11 +20,20 @@ services= [
             "openid",
             "https://auth.globus.org/scopes/facd7ccc-c5f4-42aa-916b-a0e270e2c2a9/all",]
 
-res_cred = mdf_toolbox.confidential_login(client_id=client_id,
-                                        client_secret=client_secret,
-                                        services=services, make_clients=True)
+if os.getenv('GHA'):
+    # Github Actions specific login code
+    client_id = os.getenv('CLIENT_ID')
+    client_secret = os.getenv('CLIENT_SECRET')
 
 
+
+    res_cred = mdf_toolbox.confidential_login(client_id=client_id,
+                                            client_secret=client_secret,
+                                            services=services, make_clients=True)
+else:
+    # Local login code
+    res_cred = mdf_toolbox.login(services=services,
+                                 make_clients=True)
 
 #updated test dataset
 test_dataset = "_test_foundry_iris_dev_v2.1"
